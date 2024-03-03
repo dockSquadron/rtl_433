@@ -79,7 +79,8 @@ static struct crc_init known_crc_init[] = {
         {0x2C22, "Santa Barbara, CA", "Southern California Edison"},
         {0x142A, "Washington", "Puget Sound Energy"},
         {0x47F7, "Pennsylvania", "PPL Electric"},
-        {0x22c6, "Long Island, NY", "PSEG Long Island"}};
+        {0x22c6, "Long Island, NY", "PSEG Long Island"},
+        {0xD1FF, "New Jersey", "PSE&G"}};
 
 static int gridstream_checksum(int fulllength, uint16_t length, uint8_t *bits, int adjust)
 {
