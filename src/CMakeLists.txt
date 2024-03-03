@@ -233,6 +233,7 @@ add_library(r_433 STATIC
     devices/thermopro_tx2c.c
     devices/tpms_abarth124.c
     devices/tpms_ave.c
+    devices/tpms_bmw.c
     devices/tpms_citroen.c
     devices/tpms_eezrv.c
     devices/tpms_elantra2012.c
@@ -254,6 +255,7 @@ add_library(r_433 STATIC
     devices/vaillant_vrt340f.c
     devices/vauno_en8822c.c
     devices/visonic_powercode.c
+    devices/watts_thermostat.c
     devices/waveman.c
     devices/wec2103.c
     devices/wg_pb12v1.c
