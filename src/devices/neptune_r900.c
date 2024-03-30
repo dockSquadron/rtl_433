@@ -140,6 +140,9 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     uint8_t b[13]; // 104 bits
     bitbuffer_extract_bytes(&bytes, 0, 0, b, sizeof(b)*8);
 
+    char raw[13];
+    snprintf(raw, sizeof(raw),"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",    b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12]);
+
     // decode the data
 
     // meter_id 32 bits
@@ -199,6 +202,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
             "leak",        "",    DATA_INT,    leak,
             "leaknow",     "",    DATA_INT,    leaknow,
             "extra",       "",    DATA_STRING, extra,
+            "raw",         "",    DATA_STRING, raw,
             NULL);
     /* clang-format on */
     decoder_output_data(decoder, data);
@@ -226,6 +230,7 @@ static char const *const output_fields[] = {
         "leak",
         "leaknow",
         "extra",
+        "raw",
         NULL,
 };
 
