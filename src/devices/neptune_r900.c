@@ -145,10 +145,10 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 
     // decode the data
 
-    // meter_id 32 bits
+    //meter_id 32 bits
     uint32_t meter_id = ((uint32_t)b[0] << 24) | (b[1] << 16) | (b[2] << 8) | (b[3]);
-    //Unkn1 8 bits
-    int unkn1 = b[4];
+    //protocol 8 bits
+    int protocol = b[4];
     //Unkn2 3 bits
     int unkn2 = b[5] >> 5;
     //NoUse 3 bits
@@ -166,10 +166,19 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     // 1 = low
     // 2 = high
     int backflow = b[5]&0x03;
-    //Consumption 24 bits
-    int consumption = (b[6] << 16) | (b[7] << 8) | (b[8]);
+
+    int consumption;
+    int unkn3;
+    
+    if (protocol == 163){
+        //Consumption 3 bits Unkn3 + 24 bits
+        consumption = ((b[9] >> 5) << 24 | b[6] << 16) | (b[7] << 8) | (b[8]);
+    }else{
+        //Consumption 24 bits
+        consumption =                     (b[6] << 16) | (b[7] << 8) | (b[8]);
+    }
     //Unkn3 2 bits + 1 bit ???
-    int unkn3 = b[9] >> 5;
+    unkn3 = b[9] >> 5;  
     //Leak 3 bits
     // 0 = 0 days
     // 1 = 1-2 days
@@ -193,7 +202,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     data_t *data = data_make(
             "model",       "",    DATA_STRING, "Neptune-R900",
             "id",          "",    DATA_INT,    meter_id,
-            "unkn1",       "",    DATA_INT,    unkn1,
+            "protocol",    "",    DATA_INT,    protocol,
             "unkn2",       "",    DATA_INT,    unkn2,
             "nouse",       "",    DATA_INT,    nouse,
             "backflow",    "",    DATA_INT,    backflow,
@@ -221,7 +230,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 static char const *const output_fields[] = {
         "model",
         "id",
-        "unkn1",
+        "protocol",
         "unkn2",
         "nouse",
         "backflow",
