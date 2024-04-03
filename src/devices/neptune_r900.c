@@ -178,7 +178,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
         consumption =                     (b[6] << 16) | (b[7] << 8) | (b[8]);
     }
     //Unkn3 2 bits + 1 bit ???
-    unkn3 = b[9] >> 5;  
+    unkn3 = b[9] >> 5;
     //Leak 3 bits
     // 0 = 0 days
     // 1 = 1-2 days
