@@ -170,12 +170,13 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     int consumption;
     int unkn3;
     
-    if (version == 163){
+    if (version == 163) {
         //Consumption 3 bits Unkn3 + 24 bits
         consumption = ((b[9] >> 5) << 24 | b[6] << 16) | (b[7] << 8) | (b[8]);
-    }else{
+    }
+    else {
         //Consumption 24 bits
-        consumption =                     (b[6] << 16) | (b[7] << 8) | (b[8]);
+        consumption = (b[6] << 16) | (b[7] << 8) | (b[8]);
     }
     //Unkn3 2 bits + 1 bit ???
     unkn3 = b[9] >> 5;
