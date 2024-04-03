@@ -36,7 +36,7 @@ It should be sufficient to find the start of the data after 0x55,0x55,0x55,0xA9,
 Once the payload is decoded, the message is as follows:
 (from https://github.com/bemasher/rtlamr/wiki/Protocol#r900-consumption-message)
 - ID - 32 bits
-- Unkn1 - 8 bits
+- Protocol - 8 bits
 - NoUse - 6 bits
 - BackFlow - 6 bits    // found this to be 2 bits in my case ???
 - Consumption - 24 bits
@@ -50,14 +50,14 @@ After decoding the bitstream into 104 bits of payload, the layout appears to be:
 
 Data layout:
 
-    IIIIIIII IIIIIIII IIIIIIII IIIIIIII UUUUUUUU ???NNNBB CCCCCCCC CCCCCCCC CCCCCCCC UU?TTTLL EEEEEEEE EEEEEEEE EEEEEEEE
+    IIIIIIII IIIIIIII IIIIIIII IIIIIIII PPPPPPPP ???NNNBB CCCCCCCC CCCCCCCC CCCCCCCC UUUTTTLL EEEEEEEE EEEEEEEE EEEEEEEE
 
 - I: 32-bit little-endian id
-- U:  8-bit Unknown1
+- U:  8-bit Protocol
 - N:  6-bit NoUse (3 bits)
 - B:  2-bit backflow flag
 - C: 24-bit Consumption Data, might be 1/10 gallon units
-- U:  2-bit Unknown3
+- U:  3-bit Unknown3 (Upper 3 bits of Consumption)
 - T:  4-bit days of leak mapping (3 bits)
 - L:  2-bit leak flag type
 - E: 24-bit extra data????
