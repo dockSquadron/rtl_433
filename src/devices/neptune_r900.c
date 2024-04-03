@@ -147,8 +147,8 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 
     //meter_id 32 bits
     uint32_t meter_id = ((uint32_t)b[0] << 24) | (b[1] << 16) | (b[2] << 8) | (b[3]);
-    //protocol 8 bits
-    int protocol = b[4];
+    //version 8 bits
+    int version = b[4];
     //Unkn2 3 bits
     int unkn2 = b[5] >> 5;
     //NoUse 3 bits
@@ -170,7 +170,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     int consumption;
     int unkn3;
     
-    if (protocol == 163){
+    if (version == 163){
         //Consumption 3 bits Unkn3 + 24 bits
         consumption = ((b[9] >> 5) << 24 | b[6] << 16) | (b[7] << 8) | (b[8]);
     }else{
@@ -202,7 +202,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     data_t *data = data_make(
             "model",       "",    DATA_STRING, "Neptune-R900",
             "id",          "",    DATA_INT,    meter_id,
-            "protocol",    "",    DATA_INT,    protocol,
+            "version",     "",    DATA_INT,    version,
             "unkn2",       "",    DATA_INT,    unkn2,
             "nouse",       "",    DATA_INT,    nouse,
             "backflow",    "",    DATA_INT,    backflow,
@@ -230,7 +230,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
 static char const *const output_fields[] = {
         "model",
         "id",
-        "protocol",
+        "version",
         "unkn2",
         "nouse",
         "backflow",
