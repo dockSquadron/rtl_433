@@ -166,10 +166,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
     // 1 = low
     // 2 = high
     int backflow = b[5]&0x03;
-
     int consumption;
-    int unkn3;
-
     if (version == 163) {
         //Consumption 3 bits Unkn3 + 24 bits
         consumption = ((b[9] >> 5) << 24 | b[6] << 16) | (b[7] << 8) | (b[8]);
@@ -179,7 +176,7 @@ static int neptune_r900_decode(r_device *decoder, bitbuffer_t *bitbuffer)
         consumption = (b[6] << 16) | (b[7] << 8) | (b[8]);
     }
     //Unkn3 2 bits + 1 bit ???
-    unkn3 = b[9] >> 5;
+    int unkn3 = b[9] >> 5;
     //Leak 3 bits
     // 0 = 0 days
     // 1 = 1-2 days
